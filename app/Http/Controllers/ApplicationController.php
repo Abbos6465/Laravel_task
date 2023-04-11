@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreApplicationRequest;
 use App\Jobs\SendEmailJob;
 use App\Models\Application;
+use App\Models\User;
 use Carbon\Carbon;
 
 
 class ApplicationController extends Controller
 {
+    public function index(){
+        $this->authorize('index',auth()->user());
+        return view('applications.index',['applications'=>auth()->user()->applications()->latest()->paginate(5)]);
+    }
 
     public function store(StoreApplicationRequest $request){
         if($this->checkDate()){
@@ -31,12 +36,12 @@ class ApplicationController extends Controller
 
         dispatch(new SendEmailJob($application));
 
-        return redirect()->back();
+        return to_route('application.index');
     }
     }
 
     public function answer(){
-        
+
     }
 
     protected function checkDate(){

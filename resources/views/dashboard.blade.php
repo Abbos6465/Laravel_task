@@ -45,11 +45,17 @@
                                 <div class="flex items-center justify-between text-slate-500">
                                     {{$application->user->email}}
                                 </div>
+                                @if ($application->answer()->exists())
+                                <div class="border-t">
+                                    <span class="text-indigo-600 text-xl mt-5 pt-5">Answer:</span>{{$application->answer->body}}
+                                </div>
+                                @else
                                 <div class="flex justify-end">
-                                    <a href="{{route('application.answer',['application'=>$application->id])}}" class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline">
-                                        Success
+                                    <a href="{{route('answer.create',['application'=>$application->id])}}" class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline">
+                                        Answer
                                     </a>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -96,7 +102,7 @@
                                 <input name="subject" type="text" value="{{old('subject')}}" required class="p-3 mt-2 mb-4 w-full bg-slate-200 rounded border-2 border-slate-200 focus:border-slate-600 focus:outline-none">
                                 <label class="uppercase text-sm font-bold opacity-70">Message</label>
                                 <textarea name="message" required class="p-3 mt-2 mb-4 w-full bg-slate-200 rounded border-2 border-slate-200 focus:border-slate-600 focus:outline-none" rows="5">{{old('msgfmt_parse_message')}}</textarea>
-                                <label class="uppercase text-sm font-bold opacity-70">Subject</label>
+                                <label class="uppercase text-sm font-bold opacity-70">File</label>
                                 <input type="file" name="file" class="p-3 mt-2 mb-4 w-full bg-slate-200 rounded border-2 border-slate-200 focus:border-slate-600 focus:outline-none">
                                 <input type="submit" class="py-3 px-6 my-2 bg-emerald-500 text-white font-medium rounded hover:bg-indigo-500 cursor-pointer ease-in-out duration-300" value="Send">
                             </form>
