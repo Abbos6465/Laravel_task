@@ -15,7 +15,7 @@ class AnswerController extends Controller
     }
 
     public function store(Application $application,Request $request){
-        $this->authorize('create',Answer::class);
+        $this->authorize('create',auth()->user());
         $request->validate(['body'=>'required|max:500']);
 
         $application->answer()->create([
