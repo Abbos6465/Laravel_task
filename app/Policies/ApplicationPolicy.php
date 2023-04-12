@@ -13,10 +13,8 @@ class ApplicationPolicy
     }
 
     public function index(User $user){
+        dd("Application");
         return $user->role_id===2;
     }
 
-    public function create(User $user){
-        return $user->role_id===1;
-    }
 }

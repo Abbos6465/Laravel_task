@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -14,7 +15,7 @@ class AnswerController extends Controller
     }
 
     public function store(Application $application,Request $request){
-        $this->authorize('create',auth()->user());
+        $this->authorize('create',Answer::class);
         $request->validate(['body'=>'required|max:500']);
 
         $application->answer()->create([

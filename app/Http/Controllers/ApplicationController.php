@@ -12,7 +12,7 @@ use Carbon\Carbon;
 class ApplicationController extends Controller
 {
     public function index(){
-        $this->authorize('index',auth()->user());
+        $this->authorize('index',Application::class);
         return view('applications.index',['applications'=>auth()->user()->applications()->latest()->paginate(5)]);
     }
 
